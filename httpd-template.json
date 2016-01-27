@@ -5,7 +5,7 @@
         "name": "httpd-docker-build-sample",
         "annotations": {
             "description": "Sample Docker Build of an Apache Server",
-            "iconClass": "icon-jenkins",
+            "iconClass": "icon-rhel",
             "tags": "instant-app,rhel7,httpd"
         }
     },
@@ -81,14 +81,14 @@
                          "uri": "${GIT_URI}",
                          "ref": "${GIT_REF}"
                      },
-                     "contextDir": "jenkins"
+                     "contextDir": ""
                 },
                 "strategy": {
                     "type": "Docker",
                     "dockerStrategy": {
                         "from": {
                             "kind": "ImageStreamTag",
-                            "name": "rhel:latest",
+                            "name": "rhel7:latest",
                             "namespace": "openshift"
                         }
                     }
@@ -196,12 +196,6 @@
            "description": "Custom hostname.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix>",
            "name": "APPLICATION_HOSTNAME",
            "displayName": "Application hostname"
-        },
-        {
-            "name": "JENKINS_PASSWORD",
-            "description": "Password for the Jenkins user",
-            "value": "password",
-            "generate": "expression"
         },
         {
             "name": "GIT_URI",
