@@ -1,4 +1,4 @@
-FROM rhel
+FROM registry.access.redhat.com/rhel7
 MAINTAINER A D Ministator email: esauer@redhat.com
 
 # Update the image with the latest packages (recommended)
