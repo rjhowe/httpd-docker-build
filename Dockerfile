@@ -4,16 +4,17 @@ MAINTAINER A D Ministator email: esauer@redhat.com
 # Update the image with the latest packages (recommended)
 RUN yum update -y; yum clean all
 
-# Install Apache Web Server
-RUN yum install -y httpd; yum clean all
+# Update image
+RUN yum update -y
+RUN yum install httpd procps-ng MySQL-python -y
 
-# Add the tar file of the web site
-#ADD mysite.tar /tmp/
-
-# Docker automatically extracted. So move files to web directory
-#RUN mv /tmp/mysite/* /var/www/html
-
+# Add configuration file
+ADD action /var/www/cgi-bin/action
+RUN echo "PassEnv DB_SERVICE_SERVICE_HOST" >> /etc/httpd/conf/httpd.conf
+RUN chmod 777 /var/www/cgi-bin/action
+RUN echo "The Web Server is Running" > /var/www/html/index.html
 EXPOSE 80
 
-ENTRYPOINT [ "/usr/sbin/httpd" ]
-CMD [ "-D", "FOREGROUND" ]
+# Start the service
+CMD ["-D", "FOREGROUND"]
+ENTRYPOINT ["/usr/sbin/httpd"]
